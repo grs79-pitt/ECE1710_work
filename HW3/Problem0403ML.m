@@ -26,7 +26,7 @@ VLabc = ZLmatrix*Iabc;
 [VLabc_mag, VLabc_phase] = rec2pol(VLabc);
 [Iabc_mag, Iabc_phase] = rec2pol(Iabc);
 Vdrop=(abs(Es-VLabc)/Es(1))*100;
-loadpower=VLabc.*Iabc;
+loadpower=VLabc.*conj(Iabc);
 realloadpower=real(loadpower);
 reactiveloadpower=imag(loadpower);
  disp(['The Load Voltage at Phase A is ', num2str(VLabc_mag(1)), ' ∠', num2str(VLabc_phase(1)), ' V']);
