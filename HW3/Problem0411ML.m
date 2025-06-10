@@ -1,7 +1,7 @@
 %Distribution System Modelling and Analysis, Example 4.1
 %Written by William Kersting and Robert Kerestes
 
-%Modified for Problem 4.2
+%Modified for Problem 4.11
 clear all
 clc
 j = sqrt(-1);
@@ -20,7 +20,7 @@ dod=1.29; %inches
 ncond=phase.ncond+neutral.ncond;
 
 
-k=13;
+k=13; %strands
 R=(dod-ds)/24;
 GMR_cn=(neutral.GMR*k*(R^(k-1)))^(1/k);
 r_cn=neutral.resistance/k;
