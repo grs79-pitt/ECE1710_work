@@ -1,0 +1,44 @@
+Clear
+
+New Circuit.Proj2
+
+!SourceVoltage
+
+Edit "Vsource.source" Bus1=SOURCE.1.2.3 Phases=3 Angle=0.00000  BaseKv=12.47
+~ MVAsc3=20000 MVASC1=21000    ! stiffen the source to approximate inf source
+
+
+New WireData.#1/0_ACSR NormAmps=230.00000000 Rac=1.12 Runits=mi GMRac=0.0044600 GMRUnits=ft diam=0.398 radunits=in
+
+New LineGeometry.601 nconds=4 nphases=3 units=ft
+cond=1 wire=#1/0_ACSR x=0 h= 29
+cond=2 wire=#1/0_ACSR x=7   h= 29
+cond=3 wire=#1/0_ACSR x=2.5  h= 29
+cond=4 wire=#1/0_ACSR x=4  h= 25
+
+New LineGeometry.601sp nconds=2 nphases=1 units=ft
+cond=1 wire=#1/0_ACSR x=0 h= 30
+cond=2 wire=#1/0_ACSR x=0.5   h= 25
+
+New Line.Node2 Bus1=SOURCE.1.2.3  Bus2= Node2.1.2.3.0 length=10000.00000 units= Ft geometry=601
+
+New Load.Cons1_Aph bus1=Node2.1.0 phases=1 kv=7.2 conn=wye kva=1000.00000000 pf=0.9 model=1 vminpu=0.2
+New Load.Cons1_Cph bus1=Node2.3.0 phases=1 kv=7.2 conn=wye kva=1200.00000000 pf=0.95 model=1 vminpu=0.2
+New Load.Cons1_Bph bus1=Node2.2.0 phases=1 kv=7.2 conn=wye kva=800.0000000 pf=0.85 model=1 vminpu=0.2
+
+New Line.Node3 Bus1=Node2.2.0 Bus2=Node3.2.0 length=10000.00000 units=ft geometry=601sp
+
+New Load.Cons2_SP bus1=Node3.2.0 phases=1 kv=7.2 conn=wye kva=200.00000 pf=0.9 model=2 vminpu=0.2
+
+Set Voltagebases=12.47
+
+calcv
+
+Solve 
+
+Show Voltage LN Nodes
+
+Show Currents Elements
+
+Show Powers kva Elements
+Show Currents residual=yes Elements
